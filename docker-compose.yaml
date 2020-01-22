@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  laravel:
+    container_name: ${CONTAINER_APP_NAME}
+    build: .
+    volumes: 
+      - .:/usr/src/${APP_NAME}
+    command: |
+      /bin/bash -c "
+        composer install
+        php artisan serve --host 0.0.0.0
+        /bin/bash || exit 0 "
+    ports:
+      - "${APP_PORT}:8000"
