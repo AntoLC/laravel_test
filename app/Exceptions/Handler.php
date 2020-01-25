@@ -5,8 +5,13 @@ namespace App\Exceptions;
 use App\Traits\ApiResponser;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 
 class Handler extends ExceptionHandler
 {
@@ -60,7 +65,28 @@ class Handler extends ExceptionHandler
             return $this->errorResponse("Sorry, this {$modelName} doesn't exist.", 404);
         }
 
-        return parent::render($request, $exception);
+        if($exception instanceof NotFoundHttpException){
+            return $this->errorResponse("Sorry, this route doesn't exist.", 404);
+        }
+
+        if($exception instanceof MethodNotAllowedHttpException){
+            return $this->errorResponse("Sorry, method not allowed.", 405);
+        }
+        
+        if($exception instanceof HttpException){
+            return $this->errorResponse($exception->getMessage(), $exception->getStatusCode());
+        }
+
+        if($exception instanceof QueryException){
+            $errorCode = $exception->errorInfo[1];
+
+            if($errorCode == 1451)
+                return $this->errorResponse("Cannot remove this ressource permanently, it is related with another ressource.", 409);
+        }
+        
+        return (config("app.debug"))
+            ? parent::render($request, $exception)
+            : $this->errorResponse("Unexpected exception. Retry later", 500);
     }
 
     /**
@@ -75,7 +101,7 @@ class Handler extends ExceptionHandler
         if ($e->response) {
             return $e->response;
         }
-        
+
         return $this->errorResponse($e->getMessage(), $e->status, $e->errors());
     }
 }
