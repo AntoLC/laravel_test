@@ -14,5 +14,7 @@ RUN mv composer.phar /usr/local/bin/composer
 RUN apt-get update
 RUN apt-get install zip unzip -qy
 
+RUN docker-php-ext-install pdo pdo_mysql
+
 RUN composer install
 CMD [ "php", "artisan serve" ]
