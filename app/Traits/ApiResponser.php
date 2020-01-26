@@ -13,11 +13,11 @@ trait ApiResponser
 
     protected function errorResponse($message, $code, $errors = null){
         $ar_errors['errors'] = $message;
-        $ar_errors['code'] = $code;
         if($errors){
-            $ar_errors['errors'] = $errors;
             $ar_errors['message'] = $message;
+            $ar_errors['errors'] = $errors;
         }
+        $ar_errors['code'] = $code;
         
         return response()->json($ar_errors, $code);
     }

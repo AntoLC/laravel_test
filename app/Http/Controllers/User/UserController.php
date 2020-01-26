@@ -4,10 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
-use App\Product;
-use App\Seller;
 use App\User;
-use Illuminate\Http\JsonResponse;
 
 class UserController extends ApiController
 {
