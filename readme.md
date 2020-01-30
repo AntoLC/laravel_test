@@ -1,21 +1,12 @@
 # Menu manager
 
 
-## Table of Contents
-- [Task description](#task-description)
-- [Routes](#routes)
-- [Bonus points](#bonus-points)
+## Setup
 
+docker-compose up --build
+Laravel Endpoints: http://localhost:2500
+PHPMyAdmin: http://localhost:2502
 
-## Task Description
-
-Fork or Download this repository and implement the logic to manage a menu.
-
-A Menu has a depth of **N** and maximum number of items per layer **M**. Consider **N** and **M** to be dynamic for bonus points.
-
-It should be possible to manage the menu by sending API requests. Do not implement a frontend for this task.
-
-Feel free to add comments or considerations when submitting the response at the end of the `README`.
 
 ## Considerations
 
