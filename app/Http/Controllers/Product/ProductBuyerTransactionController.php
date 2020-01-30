@@ -15,6 +15,9 @@ class ProductBuyerTransactionController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Product  $product
+     * @param  \App\User  $buyer
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Product $product, User $buyer)
@@ -25,22 +28,27 @@ class ProductBuyerTransactionController extends ApiController
 
         $this->validate($request, $rules);
 
-        if($buyer->id == $product->seller_id)
+        if ($buyer->id == $product->seller_id) {
             return $this->errorResponse("The buyer cannot be the seller", 409);
+        }
 
-        if(!$buyer->isVerified())
+        if (!$buyer->isVerified()) {
             return $this->errorResponse("The buyer must be verified", 409);
+        }
 
-        if(!$product->seller->isVerified())
+        if (!$product->seller->isVerified()) {
             return $this->errorResponse("The seller must be verified", 409);
+        }
 
-        if(!$product->isAvailable())
+        if (!$product->isAvailable()) {
             return $this->errorResponse("The product is not available", 409);
+        }
 
-        if($product->quantity < $request->quantity)
+        if ($product->quantity < $request->quantity) {
             return $this->errorResponse("Not enought quantity", 409);
+        }
 
-        return DB::transaction(function () use($request, $product, $buyer) {
+        return DB::transaction(function () use ($request, $product, $buyer) {
             $product->quantity -= $request->quantity;
             $product->save();
             

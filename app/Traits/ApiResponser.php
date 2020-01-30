@@ -8,14 +8,16 @@ use Illuminate\Support\Facades\Cache;
 
 trait ApiResponser
 {
-    private function successResponse($data, $code){
+    private function successResponse($data, $code)
+    {
         $data = $this->cacheResponse($data);
         return response()->json($data, $code);
     }
 
-    protected function errorResponse($message, $code, $errors = null){
+    protected function errorResponse($message, $code, $errors = null)
+    {
         $ar_errors['errors'] = $message;
-        if($errors){
+        if ($errors) {
             $ar_errors['message'] = $message;
             $ar_errors['errors'] = $errors;
         }
@@ -24,15 +26,18 @@ trait ApiResponser
         return response()->json($ar_errors, $code);
     }
 
-    protected function showAll(Collection $collection, $code = 200){
+    protected function showAll(Collection $collection, $code = 200)
+    {
         return $this->successResponse(['data' => $collection], $code);
     }
 
-    protected function showOne(Model $model, $code = 200){
+    protected function showOne(Model $model, $code = 200)
+    {
         return $this->successResponse(['data' => $model], $code);
     }
 
-    protected function cacheResponse($data){
+    protected function cacheResponse($data)
+    {
         $url = request()->url();
         $queryParams = request()->query();
 
@@ -41,10 +46,8 @@ trait ApiResponser
         $queryString = http_build_query($queryParams);
         $fullUrl = $url."?".$queryString;
 
-        return Cache::remember($fullUrl, $ttl=30, function () use($data) {
+        return Cache::remember($fullUrl, $ttl=30, function () use ($data) {
             return $data;
         });
     }
 }
-
-?>

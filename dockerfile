@@ -12,9 +12,10 @@ RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
 
 RUN apt-get update
-RUN apt-get install zip unzip -qy
+#RUN apt-get install zip unzip -qy
+RUN apt-get install -y openssl zip unzip git
 
-RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install pdo pdo_mysql mbstring
 
 RUN composer install
 CMD [ "php", "artisan serve" ]

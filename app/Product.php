@@ -28,19 +28,23 @@ class Product extends Model
         'pivot',
     ];
 
-    public function isAvailable(){
+    public function isAvailable()
+    {
         return $this->status == self::AVAILABLE_PRODUCT;
     }
 
-    public function categories(){
+    public function categories()
+    {
         return $this->belongsToMany(Category::class);
     }
 
-    public function seller(){
+    public function seller()
+    {
         return $this->belongsTo(Seller::class);
     }
 
-    public function transactions(){
+    public function transactions()
+    {
         return $this->hasMany(Transaction::class);
     }
 }

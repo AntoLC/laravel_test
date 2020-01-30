@@ -49,7 +49,7 @@ class UserController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -61,7 +61,7 @@ class UserController extends ApiController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -74,30 +74,31 @@ class UserController extends ApiController
 
         $this->validate($request, $rules);
 
-        if ($request->has('name')){
+        if ($request->has('name')) {
             $user->name = $request->name;
         }
 
-        if ($request->has('email') && $user->email != $request->email){
+        if ($request->has('email') && $user->email != $request->email) {
             $user->verified = User::UNVERIFIED_USER;
             $user->verification_token = User::generateVerificationCode();
             $user->email = $request->email;
         }
 
-        if($request->has('password')){
+        if ($request->has('password')) {
             $user->password = bcrypt($request->password);
         }
 
-        if($request->has('admin')){
-            if(!$user->isVerified()){
+        if ($request->has('admin')) {
+            if (!$user->isVerified()) {
                 return $this->errorResponse('Only verified users can modify the admin field', 409);
             }
 
             $user->admin = $request->admin;
         }
 
-        if(!$user->isDirty())
+        if (!$user->isDirty()) {
             return $this->errorResponse('You need to specify a different value to update', 422);
+        }
 
         $user->save();
 
@@ -107,7 +108,7 @@ class UserController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)

@@ -28,8 +28,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 
-        'email', 
+        'name',
+        'email',
         'password',
         'verified',
         'verified_token',
@@ -42,7 +42,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 
+        'password',
         'remember_token',
         'verification_token'
     ];
@@ -59,30 +59,36 @@ class User extends Authenticatable
     /**
      *  Automatically call before insert in DB
      */
-    public function setNameAttribute($name){
+    public function setNameAttribute($name)
+    {
         $this->attributes['name'] = strtolower($name);
     }
 
     /**
      *  Automatically call before render in View or Json
      */
-    public function getNameAttribute($name){
+    public function getNameAttribute($name)
+    {
         return ucwords($name);
     }
 
-    public function setEmailAttribute($email){
+    public function setEmailAttribute($email)
+    {
         $this->attributes['email'] = strtolower($email);
     }
 
-    public function isVerified(){
-       return $this->verified == self::VERIFIED_USER; 
+    public function isVerified()
+    {
+        return $this->verified == self::VERIFIED_USER;
     }
 
-    public function isAdmin(){
-        return $this->admin == self::ADMIN_USER; 
+    public function isAdmin()
+    {
+        return $this->admin == self::ADMIN_USER;
     }
 
-    public static function generateVerificationCode(){
+    public static function generateVerificationCode()
+    {
         return Str::random(40);
     }
 }

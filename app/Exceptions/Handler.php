@@ -56,32 +56,33 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if($exception instanceof ValidationException){
+        if ($exception instanceof ValidationException) {
             return $this->convertValidationExceptionToResponse($exception, $request);
         }
 
-        if($exception instanceof ModelNotFoundException){
+        if ($exception instanceof ModelNotFoundException) {
             $modelName = strtolower(class_basename($exception->getModel()));
             return $this->errorResponse("Sorry, this {$modelName} doesn't exist.", 404);
         }
 
-        if($exception instanceof NotFoundHttpException){
+        if ($exception instanceof NotFoundHttpException) {
             return $this->errorResponse("Sorry, this route doesn't exist.", 404);
         }
 
-        if($exception instanceof MethodNotAllowedHttpException){
+        if ($exception instanceof MethodNotAllowedHttpException) {
             return $this->errorResponse("Sorry, method not allowed.", 405);
         }
         
-        if($exception instanceof HttpException){
+        if ($exception instanceof HttpException) {
             return $this->errorResponse($exception->getMessage(), $exception->getStatusCode());
         }
 
-        if($exception instanceof QueryException){
+        if ($exception instanceof QueryException) {
             $errorCode = $exception->errorInfo[1];
 
-            if($errorCode == 1451)
+            if ($errorCode == 1451) {
                 return $this->errorResponse("Cannot remove this ressource permanently, it is related with another ressource.", 409);
+            }
         }
         
         return (config("app.debug"))

@@ -74,24 +74,26 @@ class SellerProductController extends ApiController
             'quantity'
         ]));
 
-        if($request->has('status')){
+        if ($request->has('status')) {
             $product->status = $request->status;
 
-            if($product->isAvailable() && $product->categories()->count() == 0){
+            if ($product->isAvailable() && $product->categories()->count() == 0) {
                 return $this->errorResponse('An active product must have at least one category', 409);
             }
         }
 
-        if($product->isClean())
+        if ($product->isClean()) {
             return $this->errorResponse('You need to specify a different value to update', 422);
+        }
 
         $product->save();
 
         return $this->showOne($product);
     }
 
-    private function isProductSellerOrError(Seller $seller, Product $product){
-        if($seller->id != $product->seller_id){
+    private function isProductSellerOrError(Seller $seller, Product $product)
+    {
+        if ($seller->id != $product->seller_id) {
             throw new HttpException(422, "Specified Seller is not the seller of the product");
         }
     }

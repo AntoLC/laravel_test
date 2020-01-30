@@ -21,7 +21,7 @@ class BuyerController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Buyer  $buyer
      * @return \Illuminate\Http\Response
      */
     public function show(Buyer $buyer)
