@@ -38,3 +38,14 @@ PHPMyAdmin: http://localhost:2502
 |        | GET|HEAD  | api/menus/{menu}/items          | menus.items.index | App\Http\Controllers\MenuItemController@index       | api        |
 +--------+-----------+---------------------------------+-------------------+-----------------------------------------------------+------------+
 ```
+
+## Time up... I didn't do:
+
+```
+api/menus/{menu}/items 
+/menus/{menu}/depth
+```
+
+I didn't implement tests, but I know how to use it, I would have tested the endpoint in ```tests/Feature``` folder, and use ```.env.testing```.
+
+PhpCS | PhpCsFixer | PhpStan are installed but I didn't have the times to use them.
