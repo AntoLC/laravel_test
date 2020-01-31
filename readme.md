@@ -18,6 +18,8 @@ Laravel Endpoints: http://localhost:2500
 PHPMyAdmin: http://localhost:2502
 
 ## Routes
+
+```
 +--------+-----------+---------------------------------+-------------------+-----------------------------------------------------+------------+
 |        | POST      | api/items                       | items.store       | App\Http\Controllers\ItemController@store           | api        |
 |        | DELETE    | api/items/{item}                | items.destroy     | App\Http\Controllers\ItemController@destroy         | api        |
@@ -35,3 +37,4 @@ PHPMyAdmin: http://localhost:2502
 |        | POST      | api/menus/{menu}/items          | menus.items.store | App\Http\Controllers\MenuItemController@store       | api        |
 |        | GET|HEAD  | api/menus/{menu}/items          | menus.items.index | App\Http\Controllers\MenuItemController@index       | api        |
 +--------+-----------+---------------------------------+-------------------+-----------------------------------------------------+------------+
+```
