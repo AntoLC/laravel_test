@@ -39,7 +39,7 @@ PHPMyAdmin: http://localhost:2502
 +--------+-----------+---------------------------------+-------------------+-----------------------------------------------------+------------+
 ```
 
-## Time up... I didn't do:
+## Time up... With more time I would have done:
 
 ```
 /menus/{menu}/layers/{layer} 
@@ -49,6 +49,8 @@ PHPMyAdmin: http://localhost:2502
 I didn't implement tests, but I know how to use it, I would have tested the endpoint in ```tests/Feature``` folder, and use ```.env.testing```.
 
 PhpCS | PhpCsFixer | PhpStan are installed but I didn't have the times to use them.
+
+I would have made a better documentation.
 
 ## 10 vs 1.000.000 menu items - what would you do differently?
 
