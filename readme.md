@@ -42,10 +42,18 @@ PHPMyAdmin: http://localhost:2502
 ## Time up... I didn't do:
 
 ```
-api/menus/{menu}/items 
+/menus/{menu}/layers/{layer} 
 /menus/{menu}/depth
 ```
 
 I didn't implement tests, but I know how to use it, I would have tested the endpoint in ```tests/Feature``` folder, and use ```.env.testing```.
 
 PhpCS | PhpCsFixer | PhpStan are installed but I didn't have the times to use them.
+
+## 10 vs 1.000.000 menu items - what would you do differently?
+
+Pagination
+
+Search Query
+
+Trie node to research data? (https://en.wikipedia.org/wiki/Trie)
